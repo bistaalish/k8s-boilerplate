@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: webapp-nfs-pv
+  namespace: webapp
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.10.4
+    path: /mnt/pve/HDD/nfsshare/webapp
