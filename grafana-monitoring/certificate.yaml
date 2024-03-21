@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: default-staging-cert
+  namespace: crud-node
+spec:
+  secretName: default-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: linuxeval.eu.org
+  dnsNames:
+    - linuxeval.eu.org
+    - '*.linuxeval.eu.org'

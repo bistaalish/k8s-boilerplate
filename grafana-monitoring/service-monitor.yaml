@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: crud-node-service-monitor
+  namespace: crud-node
+  labels:
+    release: kube-prometheus-stack
+    app: prometheus
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: kube-prometheus-stack
+    app.kubernetes.io/part-of: kube-prometheus-stack
+
+spec:
+  jobLabel: crud-node-api
+  endpoints:
+    - interval: 30s
+      port: web
+      path: /swagger-stats/metrics
+  selector:
+    matchLabels:
+      app: crud-service-api

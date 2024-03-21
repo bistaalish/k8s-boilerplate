@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-depl
+  namespace: crud-node
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crud-depl
+  template:
+    metadata:
+      labels:
+        app: crud-depl
+    spec:
+      containers:
+      - name: crud-node
+        image: zokarnalayak/crud-node
+        ports:
+        - containerPort: 3030
+        env:
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: crud-configmap
+                key: PORT
+          - name: MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: crud-secret
+                key: MONGODB_URI
+        # envFrom:
+        # - configMapRef:
+        #   name: crud-configmap
+        # - secretRef:
+        #   name: crud-secret
